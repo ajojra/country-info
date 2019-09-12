@@ -1,26 +1,44 @@
-import {fetchByName} from '../app/api';
+import { CountryInfo } from 'src/model/CountryInfo';
 
-export function setUpDom() {
-    const input = document.querySelector("#country");
-    const datalist = document.querySelector("datalist");
+import { DOM } from './dom';
+import { api } from './api';
 
-    // Adds a keyup listener on the input.
-    input.addEventListener("keyup", (e) => {
-        const value = (<HTMLInputElement>e.target).value;
-        // If input value is longer or equal than 2 chars, adding "users" on ID attribute.
+class App {
+    private countries!: CountryInfo[];
+    private selectedCountry!: CountryInfo;
+
+    constructor() {
+        DOM.inputKeyUp(this.onInputKeyUp.bind(this));
+    }
+
+    private onInputKeyUp(value: string) {
         if (value.length >= 3) {
-            datalist.setAttribute("id", "countries");
-            fetchByName(value).then(res => {
-                console.log(res);
-            });
+            const selectedCountry = (this.countries || []).find(c => `${c.name} - ${c.alpha3Code}` === value);
+            if (selectedCountry) {
+                this.onCountrySelect(selectedCountry);
+            } else {
+                api.search(value).then(res => {
+                    this.countries = res;
+                    DOM.processDataList(this.countries);
+                    DOM.populateDescriptionList();
+                });
+            }
         } else {
-            datalist.setAttribute("id", "");
+            DOM.processDataList([]);
+            DOM.populateDescriptionList();
         }
-    });
+    }
+
+    private onCountrySelect(selectedCountry: CountryInfo) {
+        //if (!this.selectedCountry || selectedCountry.name !== this.selectedCountry.name) {
+            this.onCountryChanged(selectedCountry);
+        //}
+    }
+
+    private onCountryChanged(selectedCountry: CountryInfo) {
+        this.selectedCountry = selectedCountry;
+        DOM.populateDescriptionList(selectedCountry);
+    }
 }
 
-
-
-(function () {
-    setUpDom();
-})();
+export const app = new App();
