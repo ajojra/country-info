@@ -43,7 +43,7 @@ export class DOM {
     }
 
     static populateDescriptionList(country?: CountryInfo) {
-        const descriptionList = document.querySelector("dl") as Element;
+        const descriptionList = document.querySelector("#info") as Element;
         if (country && country.name) {
             const html = `
             <dt>Country flag:</dt>
@@ -62,6 +62,19 @@ export class DOM {
             descriptionList.innerHTML = html;
         } else {
             descriptionList.innerHTML = '';
+        }
+    }
+
+    static populateHistory(countriesInfo: CountryInfo[]) {
+        const historyList = document.querySelector("#history") as Element;
+        if (countriesInfo && countriesInfo.length) {
+            let html = '';
+            countriesInfo.forEach((countryInfo: CountryInfo) => {
+                html += `<li>${countryInfo.name} - ${countryInfo.alpha3Code}</li>`;
+            });
+            historyList.innerHTML = html;
+        } else {
+            historyList.innerHTML = '';
         }
     }
 

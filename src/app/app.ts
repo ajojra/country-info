@@ -6,6 +6,7 @@ import { api } from './api';
 class App {
     private countries!: CountryInfo[];
     private selectedCountry!: CountryInfo;
+    private history!: CountryInfo[];
 
     constructor() {
         DOM.inputKeyUp(this.onInputKeyUp.bind(this));
@@ -30,14 +31,13 @@ class App {
     }
 
     private onCountrySelect(selectedCountry: CountryInfo) {
-        //if (!this.selectedCountry || selectedCountry.name !== this.selectedCountry.name) {
-            this.onCountryChanged(selectedCountry);
-        //}
-    }
-
-    private onCountryChanged(selectedCountry: CountryInfo) {
         this.selectedCountry = selectedCountry;
+        this.history = this.history || [];
+        if(!this.history.find(c => c.name === selectedCountry.name)){
+            this.history.push(selectedCountry);
+        }
         DOM.populateDescriptionList(selectedCountry);
+        DOM.populateHistory(this.history.reverse());
     }
 }
 

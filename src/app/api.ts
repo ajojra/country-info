@@ -8,7 +8,8 @@ class API {
 
     private url(name: string | null, alpha: string | null): string {
         const domain = 'https://restcountries.eu/rest/v2/';
-        return `${domain}${name ? `name/${name}` : ''}${alpha ? `alpha/${alpha}` : ''}`;
+        const requiredFields = '?fields=name;flag;currencies;latlng;area;alpha3Code';
+        return `${domain}${name ? `name/${name}` : ''}${alpha ? `alpha/${alpha}` : ''}${requiredFields}`;
     }
 
     async search(searchString: string): Promise<CountryInfo[]> {
