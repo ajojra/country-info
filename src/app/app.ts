@@ -9,10 +9,10 @@ class App {
     private history!: CountryInfo[];
 
     constructor() {
-        DOM.inputKeyUp(this.onInputKeyUp.bind(this));
+        DOM.inputChange(this.onInputChange.bind(this));
     }
 
-    private onInputKeyUp(value: string) {
+    private onInputChange(value: string) {
         if (value.length >= 3) {
             const selectedCountry = (this.countries || []).find(c => `${c.name} - ${c.alpha3Code}` === value);
             if (selectedCountry) {

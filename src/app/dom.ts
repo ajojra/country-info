@@ -9,10 +9,10 @@ export class DOM {
      * Trigger event on input key up
      * @param fn 
      */
-    static inputKeyUp(fn: Function) {
+    static inputChange(fn: Function) {
         this.ready(() => {
             const input = document.querySelector("#country") as Element;
-            input.addEventListener("keyup", (e) => {
+            input.addEventListener("input", (e) => {
                 const value = (<HTMLInputElement>e.target).value;
                 fn(value);
             });
