@@ -2,6 +2,8 @@
 
 Front-End Engineer Technical Challenge
 
+[Demo - GitHub Page](https://aman-jojra.github.io/country-info/)
+
 ## Installation
 
 Use the package manager [npm](https://www.npmjs.com/get-npm) to install country info project.
