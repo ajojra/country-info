@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        Countries Information Portal
+    </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="style.css" rel="stylesheet"></head>
+
+<body>
+    <h3>Welcome to portal </h3>
+    <fieldset>
+        <legend>Type atleast 3 chars</legend>
+        <input list="countries" type="text" name="country" id="country" placeholder="e.g. aus" autocomplete="off">
+    </fieldset>
+    
+    <datalist id="countries"></datalist>
+
+    
+    <dl id="info"></dl>
+
+    
+    <p class="country__no-result" id="no-result">No result found</p>
+
+    
+    <ol type="1" id="history"></ol>
+<script type="text/javascript" src="main.js"></script></body>
+
+</html>
